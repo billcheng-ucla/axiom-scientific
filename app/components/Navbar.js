@@ -15,6 +15,7 @@ class Navbar extends React.Component
 	componentDidMount()
 	{
 		NavbarStore.listen(this.onChange)
+		this.setState({user: JSON.parse(localStorage.user)})
 		// NavbarActions.getCharacterCount()
 		// let socket = io.connect()
 	}
@@ -36,13 +37,19 @@ class Navbar extends React.Component
 
 	render()
 	{
+		var loggedIn = function()
+		{
+			console.log(this)
+			return (this.state.user) ? <div>Hello {this.state.user.fname} </div> : (<div><Link to='/login' className='btn btn-default'>Login</Link>
+						<Link to='/signup' className='btn btn-default'>Sign Up</Link></div>)
+		}
+		loggedIn.bind(this)
 		return (
 			<nav className='navbar navbar-default navbar-static-top'>
 				<div className='container-fluid'>
 					<div className='row blue'>
 						<div>Axiom-Scientific</div>
-						<Link to='/login' className='btn btn-default'>Login</Link>
-						<Link to='/signup' className='btn btn-default'>Sign Up</Link>
+						{loggedIn.call(this)}
 					</div>
 					<div className='row'>
 						<form ref='searchForm' className='navbar-form navbar-left animated' onSubmit={this.handleSearch.bind(this)}>

@@ -522,6 +522,7 @@ var Navbar = function (_React$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			_NavbarStore2.default.listen(this.onChange);
+			this.setState({ user: JSON.parse(localStorage.user) });
 			// NavbarActions.getCharacterCount()
 			// let socket = io.connect()
 		}
@@ -543,6 +544,30 @@ var Navbar = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var loggedIn = function loggedIn() {
+				console.log(this);
+				return this.state.user ? _react2.default.createElement(
+					'div',
+					null,
+					'Hello ',
+					this.state.user.fname,
+					' '
+				) : _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/login', className: 'btn btn-default' },
+						'Login'
+					),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/signup', className: 'btn btn-default' },
+						'Sign Up'
+					)
+				);
+			};
+			loggedIn.bind(this);
 			return _react2.default.createElement(
 				'nav',
 				{ className: 'navbar navbar-default navbar-static-top' },
@@ -557,16 +582,7 @@ var Navbar = function (_React$Component) {
 							null,
 							'Axiom-Scientific'
 						),
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/login', className: 'btn btn-default' },
-							'Login'
-						),
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/signup', className: 'btn btn-default' },
-							'Sign Up'
-						)
+						loggedIn.call(this)
 					),
 					_react2.default.createElement(
 						'div',
