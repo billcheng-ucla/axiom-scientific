@@ -11,11 +11,12 @@ var Router = require('react-router');
 var routes = require('./app/routes');
 var mongoose = require('mongoose')
 var User = require('./models/user')
+var Product = require('./models/product')
 var config = require('./config')
 mongoose.connect(config.database);
 mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
-});
+})
 
 
 var app = express()
@@ -68,6 +69,27 @@ app.get('/api/users', function(req, res, next)
   User.find({}, function(err, users)
   {
     res.json(users)
+  })
+})
+
+app.get('/api/products', function(req, res, next)
+{
+  Product.find({}, function(err, products)
+  {
+    res.json(products)
+  })
+})
+
+app.get('/api/products/:sku', function(req, res, next)
+{
+  var sku = req.params.sku
+  Product.findOne({sku: sku}, function(err, product) {
+    if (err) return next(err)
+    if (!product) {
+      return res.status(404).send({message: "Product not found"})
+    }
+
+    res.send(product)
   })
 })
 
