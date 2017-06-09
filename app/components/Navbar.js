@@ -60,7 +60,7 @@ class Navbar extends React.Component
 				              </span>
 				            </div>
 						</form>
-						<div>My Cart</div>
+						<div>My Cart {this.state.cartItems}</div>
 					</div>
 				</div>
 			</nav>

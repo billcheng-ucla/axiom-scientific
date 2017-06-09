@@ -76,7 +76,7 @@ app.get('/api/products', function(req, res, next)
 {
   Product.find({}, function(err, products)
   {
-    res.json(products)
+    res.send(products)
   })
 })
 

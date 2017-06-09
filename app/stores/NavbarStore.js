@@ -6,6 +6,7 @@ class NavbarStore
 	constructor()
 	{
 		this.bindActions(NavbarActions)
+		this.cartItems = 0
 	}
 }
 
