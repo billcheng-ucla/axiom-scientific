@@ -19,14 +19,16 @@ var CartActions = function () {
 	function CartActions() {
 		_classCallCheck(this, CartActions);
 
-		this.generateActions('updateShoppingCart', 'getCartSuccess');
+		this.generateActions('updateShoppingCart', 'getCartSuccess', 'updateCartVisible');
 	}
 
 	_createClass(CartActions, [{
 		key: 'getCart',
 		value: function getCart() {
 			if (localStorage.user) {
+				console.log("User Logged In");
 				if (localStorage.cart) {
+					console.log("Data stored in session");
 					newCart = {};
 					for (var key in JSON.parse(localStorage.user).cart) {
 						if (JSON.parse(localStorage.cart)[key]) {
@@ -46,11 +48,13 @@ var CartActions = function () {
 						url: '/api/users/' + JSON.parse(localStorage.user).email,
 						data: { cart: localStorage.cart }
 					});
-					locaStorage.cart = '';
+					localStorage.cart = '';
 				} else {
+					console.log("No data stored in session");
 					this.actions.getCartSuccess(JSON.parse(localStorage.user).cart);
 				}
 			} else {
+				console.log("No User Logged In");
 				var newCart = localStorage.cart ? JSON.parse(localStorage.cart) : { numberOfItems: 0 };
 				this.actions.getCartSuccess(newCart);
 			}
@@ -402,6 +406,26 @@ var Cart = function (_React$Component) {
 			this.setState(state);
 		}
 	}, {
+		key: 'hideCart',
+		value: function hideCart() {
+			_CartActions2.default.updateCartVisible(false);
+		}
+	}, {
+		key: 'showCart',
+		value: function showCart() {
+			_CartActions2.default.updateCartVisible(true);
+		}
+	}, {
+		key: 'showCartState',
+		value: function showCartState() {
+			var msg = "Cart ";
+			if (!this.state.cartVisible) {
+				msg += "in";
+			}
+			msg += "visible";
+			return msg;
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -409,9 +433,14 @@ var Cart = function (_React$Component) {
 				null,
 				_react2.default.createElement(
 					'button',
-					{ className: 'btn btn-default' },
+					{ className: 'btn btn-default', onClick: this.showCart },
 					'My Cart ',
 					this.state.cart.numberOfItems
+				),
+				_react2.default.createElement(
+					'div',
+					null,
+					this.showCartState.call(this)
 				)
 			);
 		}
@@ -1678,12 +1707,15 @@ var CartStore = function () {
 		key: 'onGetCartSuccess',
 		value: function onGetCartSuccess(cart) {
 			this.cart = cart;
-			localStorage.cart = JSON.stringify(cart);
+			//localStorage.cart = JSON.stringify(cart)
 		}
 	}, {
 		key: 'onUpdateShoppingCart',
 		value: function onUpdateShoppingCart(item) {
+			console.log(item);
+			console.log(this);
 			if (this.cart[item.sku]) {
+				console.log(this.cart[item.sku]);
 				this.cart[item.sku].itemsWanted += parseInt(item.itemsWanted);
 			} else {
 				this.cart[item.sku] = item;
@@ -1691,6 +1723,11 @@ var CartStore = function () {
 			this.cart.numberOfItems += parseInt(item.itemsWanted);
 			localStorage.cart = JSON.stringify(this.cart);
 			console.log(localStorage.cart);
+		}
+	}, {
+		key: 'onUpdateCartVisible',
+		value: function onUpdateCartVisible(cartVisible) {
+			this.cartVisible = cartVisible;
 		}
 	}]);
 
@@ -1870,7 +1907,7 @@ var ProductStore = function () {
 	}, {
 		key: 'onUpdateItemsWanted',
 		value: function onUpdateItemsWanted(e) {
-			this.itemsWanted = e.target.value;
+			this.itemsWanted = parseInt(e.target.value);
 		}
 	}]);
 

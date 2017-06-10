@@ -6,7 +6,8 @@ class CartActions
 	{
 		this.generateActions(
 			'updateShoppingCart',
-			'getCartSuccess'
+			'getCartSuccess',
+			'updateCartVisible',
 		)
 	}
 
@@ -14,8 +15,10 @@ class CartActions
 	{
 		if (localStorage.user)
 		{
+			console.log("User Logged In")
 			if (localStorage.cart)
 			{
+				console.log("Data stored in session")
 				newCart = {}
 				for (var key in JSON.parse(localStorage.user).cart) 
 				{
@@ -42,15 +45,17 @@ class CartActions
 					url: '/api/users/' + JSON.parse(localStorage.user).email,
 					data: {cart: localStorage.cart}
 				})
-				locaStorage.cart = ''
+				localStorage.cart = ''
 			}
 			else
 			{
+				console.log("No data stored in session")
 				this.actions.getCartSuccess(JSON.parse(localStorage.user).cart)
 			}
 		}
 		else
 		{
+			console.log("No User Logged In")
 			var newCart = localStorage.cart ? JSON.parse(localStorage.cart) : {numberOfItems: 0}
 			this.actions.getCartSuccess(newCart)
 		}

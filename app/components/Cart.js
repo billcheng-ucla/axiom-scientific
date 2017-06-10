@@ -31,10 +31,34 @@ class Cart extends React.Component
 		this.setState(state)
 	}
 
+	hideCart()
+	{
+		CartActions.updateCartVisible(false)
+	}
+
+	showCart()
+	{
+		CartActions.updateCartVisible(true)
+	}
+
+	showCartState()
+	{
+		var msg = "Cart "
+		if (!this.state.cartVisible)
+		{
+			msg += "in"
+		}
+		msg += "visible"
+		return msg
+	}
+
 	render()
 	{
 		return (
-			<div><button className='btn btn-default'>My Cart {this.state.cart.numberOfItems}</button></div>
+			<div>
+				<button className='btn btn-default' onClick={this.showCart}>My Cart {this.state.cart.numberOfItems}</button>
+				<div>{this.showCartState.call(this)}</div>
+			</div>
 		)
 	}
 }

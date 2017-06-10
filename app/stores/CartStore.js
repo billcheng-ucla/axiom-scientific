@@ -13,13 +13,16 @@ class CartStore
 	onGetCartSuccess(cart)
 	{
 		this.cart = cart
-		localStorage.cart = JSON.stringify(cart)
+		//localStorage.cart = JSON.stringify(cart)
 	}
 
 	onUpdateShoppingCart(item)
 	{
+		console.log(item)
+		console.log(this)
 		if (this.cart[item.sku])
 		{
+			console.log(this.cart[item.sku])
 			this.cart[item.sku].itemsWanted += parseInt(item.itemsWanted)
 		}
 		else
@@ -29,6 +32,11 @@ class CartStore
 		this.cart.numberOfItems += parseInt(item.itemsWanted)
 		localStorage.cart = JSON.stringify(this.cart)
 		console.log(localStorage.cart)
+	}
+
+	onUpdateCartVisible(cartVisible)
+	{
+		this.cartVisible = cartVisible
 	}
 }
 export default alt.createStore(CartStore)

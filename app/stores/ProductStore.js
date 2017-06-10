@@ -26,7 +26,7 @@ class ProductStore
 
 	onUpdateItemsWanted(e)
 	{
-		this.itemsWanted = e.target.value
+		this.itemsWanted = parseInt(e.target.value)
 	}
 }
 
