@@ -2,6 +2,8 @@ import React from 'react'
 import {Link} from 'react-router'
 import NavbarStore from '../stores/NavbarStore'
 import NavbarActions from '../actions/NavbarActions'
+import Cart from './Cart'
+import CartActions from '../actions/CartActions'
 
 class Navbar extends React.Component
 {
@@ -15,9 +17,10 @@ class Navbar extends React.Component
 	componentDidMount()
 	{
 		NavbarStore.listen(this.onChange)
-		this.setState({user: JSON.parse(localStorage.user)})
-		// NavbarActions.getCharacterCount()
-		// let socket = io.connect()
+		if (localStorage.user)
+		{
+			this.setState({user: JSON.parse(localStorage.user)})
+		}
 	}
 
 	componentWillUnmount()
@@ -35,12 +38,26 @@ class Navbar extends React.Component
 		console.log("Searching...")
 	}
 
+	logout()
+	{
+		$.ajax(
+		{
+			type: 'PUT',
+			url: '/api/users/' + JSON.parse(localStorage.user).email,
+			data: {cart: localStorage.cart ? localStorage.cart : JSON.stringify({numberOfItems: 0})}
+		})
+		localStorage.cart = ''
+		localStorage.user = ''
+		this.setState({user: ''})
+		CartActions.getCart()
+	}
+
 	render()
 	{
 		var loggedIn = function()
 		{
 			console.log(this)
-			return (this.state.user) ? <div>Hello {this.state.user.fname} </div> : (<div><Link to='/login' className='btn btn-default'>Login</Link>
+			return (this.state.user) ? <div>Hello {this.state.user.fname} <button className='btn btn-default' onClick={this.logout.bind(this)}>Logout</button></div> : (<div><Link to='/login' className='btn btn-default'>Login</Link>
 						<Link to='/signup' className='btn btn-default'>Sign Up</Link></div>)
 		}
 		loggedIn.bind(this)
@@ -60,7 +77,7 @@ class Navbar extends React.Component
 				              </span>
 				            </div>
 						</form>
-						<div>My Cart {this.state.cartItems}</div>
+						<Cart />
 					</div>
 				</div>
 			</nav>

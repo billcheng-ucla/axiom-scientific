@@ -72,6 +72,15 @@ app.get('/api/users', function(req, res, next)
   })
 })
 
+app.put('/api/users/:email', function(req, res, next)
+{
+  console.log(req.body)
+  User.update({email: req.params.email}, {$set: req.body}, function(err, user) {
+    if (err) return next(err)
+    console.log(user)
+  })
+})
+
 app.get('/api/products', function(req, res, next)
 {
   Product.find({}, function(err, products)

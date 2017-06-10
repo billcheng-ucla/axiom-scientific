@@ -11,7 +11,8 @@ var userSchema = new mongoose.Schema({
 	city: String,
 	st: String,
 	zip: Number,
-	phone: Number
+	phone: Number,
+	cart: String
 })
 
 userSchema.plugin(uniqueValidator)
