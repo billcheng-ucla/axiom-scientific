@@ -6,7 +6,8 @@ class ProductActions
 	{
 		this.generateActions(
 			'getProductSuccess',
-			'getProductFail'
+			'getProductFail',
+			'updateItemsWanted'
 		)
 	}
 

@@ -6,7 +6,6 @@ class NavbarActions
 	constructor()
 	{
 		this.generateActions(
-			'updateShoppingCart',
 			'updateSeachQuery',
 		)
 	}

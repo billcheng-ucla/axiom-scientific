@@ -1,5 +1,6 @@
 import React from 'react'
 import alt from '../alt'
+import CartActions from './CartActions'
 class LoginActions
 {
 	constructor()
@@ -23,10 +24,9 @@ class LoginActions
 
 var loginSuccess = function(data)
 {
-	console.log(data)
-	localStorage.setItem("user", JSON.stringify(data))
-	console.log(data.email)
-	console.log(JSON.parse(localStorage.user).email)
+	var user = data
+	user.cart = JSON.parse(user.cart)
+	localStorage.setItem("user", JSON.stringify(user))
 	location.href = '/'
 }
 

@@ -16,11 +16,17 @@ class ProductStore
 		this.description = ''
 		this.price = 0
 		this.quantity = 0
+		this.itemsWanted = 0
 	}
 
 	onGetProductSuccess(data)
 	{
 		assign(this, data)
+	}
+
+	onUpdateItemsWanted(e)
+	{
+		this.itemsWanted = parseInt(e.target.value)
 	}
 }
 

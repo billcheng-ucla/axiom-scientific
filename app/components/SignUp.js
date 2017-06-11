@@ -39,7 +39,8 @@ class SignUp extends React.Component
 			"city": this.state.city,
 			"st": this.state.st,
 			"zip": this.state.zip,
-			"phone": this.state.phone
+			"phone": this.state.phone,
+			"cart": JSON.stringify({numberOfItems: 0})
 		}
 		console.log(user)
 		SignUpActions.createUser(user)

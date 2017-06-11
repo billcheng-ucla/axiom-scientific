@@ -247,6 +247,9 @@ var inventory = [
 	quantity: 1000
 }]
 
+var User = require('./models/user')
+User.remove({}, function(err, users){})
+
 Product.remove({}, function(err, products)
 {
 	if(err)
