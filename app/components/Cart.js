@@ -1,6 +1,8 @@
 import React from 'react'
 import CartStore from '../stores/CartStore'
 import CartActions from '../actions/CartActions'
+import {Link} from 'react-router'
+import _ from 'lodash'
 
 class Cart extends React.Component
 {
@@ -41,23 +43,45 @@ class Cart extends React.Component
 		CartActions.updateCartVisible(true)
 	}
 
-	showCartState()
-	{
-		var msg = "Cart "
-		if (!this.state.cartVisible)
-		{
-			msg += "in"
-		}
-		msg += "visible"
-		return msg
-	}
-
 	render()
 	{
+		console.log(this.state.cartVisible)
+		var self = this
+		var bill = _.sumBy(_.filter(Object.keys(self.state.cart), function(o) {return o !== "numberOfItems"}), function(sku)
+		{
+			console.log(self.state.cart[sku])
+			return self.state.cart[sku].price * self.state.cart[sku].itemsWanted
+		})
+		var items = _.filter(Object.keys(self.state.cart), function(o) {return o !== "numberOfItems"}).map((sku) =>
+		{
+			function removeItem()
+			{
+				console.log(sku)
+				self.state.cart.numberOfItems -= self.state.cart[sku].itemsWanted
+				delete self.state.cart[sku]
+				localStorage.cart = JSON.stringify(self.state.cart)
+				self.setState({cart: self.state.cart})
+			}
+			return (
+				<div key={sku}>
+					<div>Name: {self.state.cart[sku].name} </div>
+					<div>Variant: {self.state.cart[sku].variant} </div>
+					<div>Price: {self.state.cart[sku].price} </div>
+					<div>x{self.state.cart[sku].itemsWanted}</div>
+					<div>Total: {self.state.cart[sku].itemsWanted * self.state.cart[sku].price}</div>
+					<button onClick={removeItem}>X</button>
+				</div>
+			)
+		})
 		return (
 			<div>
-				<button className='btn btn-default' onClick={this.showCart}>My Cart {this.state.cart.numberOfItems}</button>
-				<div>{this.showCartState.call(this)}</div>
+				<button className='btn btn-default' onClick={this.showCart} disabled={bill > 0 ? '' : 'disabled'}>My Cart {this.state.cart.numberOfItems}</button>
+				<div className={"shoppingList " + ((this.state.cartVisible && bill > 0) ? "cartActive" : "cartInactive")}>
+					<button onClick={this.hideCart}>Hide</button>
+					{items}
+					<div>{"Grand Total: " + bill}</div>
+					<Link to='/checkout' className='btn btn-primary'>Checkout</Link>
+				</div>
 			</div>
 		)
 	}
