@@ -80,7 +80,7 @@ class Cart extends React.Component
 					<button onClick={this.hideCart}>Hide</button>
 					{items}
 					<div>{"Grand Total: " + bill}</div>
-					<Link to='/checkout' className='btn btn-primary'>Checkout</Link>
+					<Link to='/checkout' className='btn btn-primary' onClick={this.hideCart}>Checkout</Link>
 				</div>
 			</div>
 		)

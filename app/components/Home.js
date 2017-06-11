@@ -3,6 +3,7 @@ import Tab from './Tab'
 import Tabs from './Tabs'
 import HomeStore from '../stores/HomeStore'
 import HomeActions from '../actions/HomeActions'
+import {Link} from 'react-router'
 class Home extends React.Component 
 {
   constructor(props)
@@ -37,7 +38,7 @@ class Home extends React.Component
   				return (
   					<div key={product.sku}>
   						<div>Name: {product.name}</div>
-  						<div>Variant: {product.variant}</div>
+  						<Link to={'/products/' + product.sku}>Variant: {product.variant}</Link>
   						<div>$ {product.price}</div>
   					</div>
   				)

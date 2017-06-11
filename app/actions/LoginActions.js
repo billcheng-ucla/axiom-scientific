@@ -29,5 +29,4 @@ var loginSuccess = function(data)
 	localStorage.setItem("user", JSON.stringify(user))
 	location.href = '/'
 }
-
 export default alt.createActions(LoginActions)
