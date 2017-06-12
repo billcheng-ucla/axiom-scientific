@@ -6,8 +6,9 @@ class NavbarActions
 	constructor()
 	{
 		this.generateActions(
-			'updateSeachQuery',
+			'updateSearchQuery',
 		)
+
 	}
 }
 

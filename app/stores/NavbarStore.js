@@ -6,6 +6,12 @@ class NavbarStore
 	constructor()
 	{
 		this.bindActions(NavbarActions)
+		this.searchQuery = ''
+	}
+
+	onUpdateSearchQuery(e)
+	{
+		this.searchQuery = e.target.value
 	}
 
 }
