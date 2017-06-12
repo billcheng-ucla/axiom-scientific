@@ -35,7 +35,8 @@ class Navbar extends React.Component
 
 	handleSearch()
 	{
-		console.log("Searching...")
+		console.log(this.state.searchQuery)
+		this.setState({searchQuery: ''})
 	}
 
 	logout()
@@ -73,7 +74,7 @@ class Navbar extends React.Component
 				            <div className='input-group'>
 				              <input type='text' className='form-control' placeholder={"Type Item # or keyword"} value={this.state.searchQuery} onChange={NavbarActions.updateSearchQuery} />
 				              <span className='input-group-btn'>
-				                <button className='btn btn-default' onClick={this.handleSearch.bind(this)}><span className='glyphicon glyphicon-search'></span></button>
+				                <Link to={'/search?req=' + this.state.searchQuery} className='btn btn-default' onClick={this.handleSearch.bind(this)}><span className='glyphicon glyphicon-search'></span></Link>
 				              </span>
 				            </div>
 						</form>
