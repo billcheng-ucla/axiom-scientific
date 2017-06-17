@@ -15,6 +15,12 @@ class CheckoutStore
 			address: ''
 		}
 		this.cart = {}
+		this.card = {
+			number: '',
+			exp_month: '',
+			exp_year: '',
+			cvc: ''
+		}
 
 	}
 
@@ -41,6 +47,21 @@ class CheckoutStore
 	onUpdateBill(e)
 	{
 		this.bill[e.target.name] = e.target.value
+	}
+
+	onUpdateCreditCard(e)
+	{
+		if(e.target.name === "expiration")
+		{
+			this.card.exp_month = e.target.value.split('/')[0]
+			this.card.exp_year = e.target.value.split('/')[1]
+		}
+		else
+		{
+			this.card[e.target.name] = e.target.value
+		}
+		console.log(this.card)
+		
 	}
 }
 

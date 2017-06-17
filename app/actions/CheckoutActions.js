@@ -9,7 +9,8 @@ class CheckoutActions
 			'generateBill',
 			'updateShip',
 			'updateBill',
-			'getCartSuccess'
+			'getCartSuccess',
+			'updateCreditCard'
 		)
 	}
 

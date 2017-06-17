@@ -66,7 +66,7 @@ class Navbar extends React.Component
 			<nav className='navbar navbar-default navbar-static-top'>
 				<div className='container-fluid'>
 					<div className='row blue'>
-						<div>Axiom-Scientific</div>
+						<Link to='/'>Axiom-Scientific</Link>
 						{loggedIn.call(this)}
 					</div>
 					<div className='row'>

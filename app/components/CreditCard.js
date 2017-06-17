@@ -74,6 +74,11 @@ class CreditCard extends React.Component
 		this.setState(state)
 	}
 
+	updateCreditCard(e)
+	{
+		this.props.onChange(e)
+	}
+
 	  renderCardForm() 
 	  {
 	      return (<div>
@@ -86,7 +91,9 @@ class CreditCard extends React.Component
 	                className="form-control"
 	                type="text"
 	                ref="number"
+	                name='number'
 	                placeholder="Card Number"
+	                onChange={this.updateCreditCard.bind(this)}
 	              />
 	            </FormGroup>
 	          </Col>
@@ -99,7 +106,9 @@ class CreditCard extends React.Component
 	                className="form-control text-center"
 	                type="text"
 	                ref="expiration"
+	                name='expiration'
 	                placeholder="MM/YYYY"
+	                onChange={this.updateCreditCard.bind(this)}
 	              />
 	            </FormGroup>
 	          </Col>
@@ -110,7 +119,9 @@ class CreditCard extends React.Component
 	                className="form-control text-center"
 	                type="text"
 	                ref="cvc"
+	                name='cvc'
 	                placeholder="CVC"
+	                onChange={this.updateCreditCard.bind(this)}
 	              />
 	            </FormGroup>
 	          </Col>

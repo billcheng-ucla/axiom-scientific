@@ -32,9 +32,83 @@ class Checkout extends React.Component
   		this.setState(state)
   	}
 
-  	handleSubmit()
+  	handleSubmit(e)
   	{
-  		console.log("Coming Soon")
+  		e.preventDefault()
+  		var self = this
+  		var total = _.sumBy(_.filter(Object.keys(self.state.cart), function(o) {return o !== "numberOfItems"}), function(sku)
+		{
+			return self.state.cart[sku].price * self.state.cart[sku].itemsWanted
+		})
+  		if (localStorage.user)
+  		{
+	  		$.ajax({
+	  			type: 'POST',
+	  			url: '/checkout',
+	  			data: {
+	  				email_address: JSON.parse(localStorage.user).email,
+	  				status: 'subscribed',
+	  				merge_fields: {
+	  					'FNAME': JSON.parse(localStorage.user).fname,
+	  					'LNAME': JSON.parse(localStorage.user).lname,
+	  					'CART': JSON.stringify(self.state.cart),
+	  					'SHIPNAME': self.state.ship.name,
+	  					'SHIPADD': self.state.ship.address,
+	  					'BILLNAME': self.state.bill.name,
+	  					'BILLADD': self.state.bill.address,
+	  					'TOTAL': total
+	  				},
+	  				card: self.state.card
+	  			}
+	  			
+	  		}).done((data) =>
+	  		{
+	  			$.ajax(
+				{
+					type: 'PUT',
+					url: '/api/users/' + JSON.parse(localStorage.user).email,
+					data: {cart: JSON.stringify({numberOfItems: 0})}
+				})
+	  		})
+  		}
+  		else
+  		{
+  			localStorage.cart = ''
+  		}
+  		console.log(this.state.cart)
+  		for (var key in this.state.cart)
+  		{
+  			
+  			if (key !== 'numberOfItems')
+  			{
+  				var itemsWanted = this.state.cart[key].itemsWanted
+  				console.log(itemsWanted)
+  				console.log(key)
+  				$.ajax({url: '/api/products/' + this.state.cart[key].sku}).done((data) => {
+  					console.log(data)
+  					$.ajax({
+  						type: 'PUT',
+  						url: '/api/products/' + data.sku,
+  						data: {quantity: data.quantity - itemsWanted}
+  					}).done((data) =>
+  					{
+  						console.log(data)
+  					})
+  				})
+  			}
+  			else
+  			{
+  				location.href = '/thanks'
+  				this.state.cart = {}
+  			}
+  		}
+  		//this.state.cart = {}
+  		
+  	}
+
+  	creditCardChange(e)
+  	{
+  		CheckoutActions.updateCreditCard(e)
   	}
 
   	render()
@@ -83,7 +157,7 @@ class Checkout extends React.Component
   					<input type='text' className='form-control' name='name' onChange={CheckoutActions.updateBill} value={this.state.bill.name} placeholder='Name of Recipient' required/>
   					<label>Address of Recipient</label>
   					<input type='text' className='form-control' name='address' onChange={CheckoutActions.updateBill} value={this.state.bill.address} placeholder='Shipping Address' required/>
-  					<CreditCard />
+  					<CreditCard onChange={this.creditCardChange}/>
   					<button type='submit' className='btn btn-success'>Place Order</button>
   				</form>
   			</div>

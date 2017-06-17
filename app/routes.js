@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Product from './components/Product'
 import Checkout from './components/Checkout'
 import Search from './components/Search'
+import Thanks from './components/Thanks'
 
 export default (
 	<Route component={AxiomSci}>
@@ -16,5 +17,6 @@ export default (
 		<Route path='/products/:sku' component={Product} />
 		<Route path='/checkout' component={Checkout} />
 		<Route path='/search' component={Search} />
+		<Route path='/thanks' component={Thanks} />
 	</Route>
 )
