@@ -8030,6 +8030,15 @@ label {
 .blue {
   background-color: blue;
 }
+.shoppingList {
+  position: fixed;
+  width: 200px;
+  right: 0;
+  background-color: white;
+}
+.cartInactive {
+  visibility: hidden;
+}
 .grey {
   background-color: #D3D3D3;
 }
@@ -8058,4 +8067,35 @@ label {
 }
 .tabs_content {
   padding: 25px;
+}
+.CreditCard {
+  max-width: 400px;
+}
+.CreditCard .credit-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+.CreditCard .credit-card-list li {
+  float: left;
+  color: #aaa;
+  font-size: 26px;
+}
+.CreditCard .credit-card-list li:not(:last-child) {
+  margin-right: 10px;
+}
+.CreditCard .credit-card-list .active {
+  color: #666;
+}
+.CreditCard .alert {
+  margin-top: 20px;
+}
+.CreditCard .alert h5 {
+  margin-top: 0px;
+}
+.CreditCard .alert .exp-cvc {
+  margin-bottom: 5px;
+}
+.CreditCard .alert .exp-cvc span:first-child {
+  margin-right: 15px;
 }
