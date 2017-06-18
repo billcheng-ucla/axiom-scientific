@@ -40,13 +40,16 @@ class Login extends React.Component
 	render()
 	{
 		return (
-			<form onSubmit={this.handleSubmit.bind(this)}>
-				<input type='email' className='form-control' name='email' onChange={LoginActions.updateUser} value={this.state.email} placeholder='Email' required/>
-				<input type='password' className='form-control' name='password' onChange={LoginActions.updateUser} value={this.state.password} placeholder='Password' required/>
-				<button type='submit' className='btn btn-primary'>Login</button>
-				<div>Dont have an account?</div>
-				<Link to='/signup'>Sign Up Here</Link>
-			</form>
+			<div>
+				<div className='titleDiv'>Login</div>
+				<form onSubmit={this.handleSubmit.bind(this)} className='authForm'>
+					<input type='email' className='form-control' name='email' onChange={LoginActions.updateUser} value={this.state.email} placeholder='Email' required/>
+					<input type='password' className='form-control' name='password' onChange={LoginActions.updateUser} value={this.state.password} placeholder='Password' required/>
+					<button type='submit' className='btn btn-primary form-control'>Login</button>
+					<div>Dont have an account?</div>
+					<Link to='/signup'>Sign Up Here</Link>
+				</form>
+			</div>
 		)
 	}
 }
