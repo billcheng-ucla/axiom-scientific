@@ -8029,6 +8029,8 @@ label {
 /* My Stuff */
 .blue {
   background-color: blue;
+  margin-top: 10px;
+  padding: 5px;
 }
 .shoppingList {
   position: fixed;
@@ -8098,4 +8100,56 @@ label {
 }
 .CreditCard .alert .exp-cvc span:first-child {
   margin-right: 15px;
+}
+.welcome {
+  float: right;
+}
+#login {
+  margin-right: 50px;
+}
+#signup {
+  margin-right: 100px;
+}
+#logout {
+  margin-left: 25px;
+  margin-right: 100px;
+}
+.yellow-text {
+  color: yellow;
+}
+.search {
+  /*display: inline-block;*/
+  margin: 8px auto 8px 45%;
+}
+#cart {
+  float: right;
+}
+.verticalAlignHelper {
+  visibility: hidden;
+}
+#title {
+  float: left;
+  margin-left: 25px;
+}
+.titleDiv {
+  text-align: center;
+  font-size: 30px;
+}
+.authForm {
+  width: 50%;
+  margin: 25px auto;
+  text-align: center;
+}
+#searchresults {
+  width: 70%;
+  margin-left: 25%;
+}
+#searchresults a {
+  display: block;
+}
+.authForm input,
+.authForm select {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
 }

@@ -616,7 +616,7 @@ var Cart = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						null,
-						'Price: ',
+						'Price: $',
 						self.state.cart[sku].price,
 						' '
 					),
@@ -629,7 +629,7 @@ var Cart = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						null,
-						'Total: ',
+						'Total: $',
 						self.state.cart[sku].itemsWanted * self.state.cart[sku].price
 					),
 					_react2.default.createElement(
@@ -641,7 +641,7 @@ var Cart = function (_React$Component) {
 			});
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ id: 'cart' },
 				_react2.default.createElement(
 					'button',
 					{ className: 'btn btn-default', onClick: this.showCart, disabled: bill > 0 ? '' : 'disabled' },
@@ -660,7 +660,7 @@ var Cart = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						null,
-						"Grand Total: " + bill
+						"Grand Total: $" + bill
 					),
 					_react2.default.createElement(
 						_reactRouter.Link,
@@ -1489,24 +1489,33 @@ var Login = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				'form',
-				{ onSubmit: this.handleSubmit.bind(this) },
-				_react2.default.createElement('input', { type: 'email', className: 'form-control', name: 'email', onChange: _LoginActions2.default.updateUser, value: this.state.email, placeholder: 'Email', required: true }),
-				_react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', onChange: _LoginActions2.default.updateUser, value: this.state.password, placeholder: 'Password', required: true }),
+				'div',
+				null,
 				_react2.default.createElement(
-					'button',
-					{ type: 'submit', className: 'btn btn-primary' },
+					'div',
+					{ className: 'titleDiv' },
 					'Login'
 				),
 				_react2.default.createElement(
-					'div',
-					null,
-					'Dont have an account?'
-				),
-				_react2.default.createElement(
-					_reactRouter.Link,
-					{ to: '/signup' },
-					'Sign Up Here'
+					'form',
+					{ onSubmit: this.handleSubmit.bind(this), className: 'authForm' },
+					_react2.default.createElement('input', { type: 'email', className: 'form-control', name: 'email', onChange: _LoginActions2.default.updateUser, value: this.state.email, placeholder: 'Email', required: true }),
+					_react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', onChange: _LoginActions2.default.updateUser, value: this.state.password, placeholder: 'Password', required: true }),
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit', className: 'btn btn-primary form-control' },
+						'Login'
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						'Dont have an account?'
+					),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/signup' },
+						'Sign Up Here'
+					)
 				)
 			);
 		}
@@ -1610,29 +1619,28 @@ var Navbar = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var loggedIn = function loggedIn() {
-				console.log(this);
 				return this.state.user ? _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'welcome yellow-text' },
 					'Hello ',
 					this.state.user.fname,
 					' ',
 					_react2.default.createElement(
 						'button',
-						{ className: 'btn btn-default', onClick: this.logout.bind(this) },
+						{ className: 'btn btn-default', id: 'logout', onClick: this.logout.bind(this) },
 						'Logout'
 					)
 				) : _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'welcome' },
 					_react2.default.createElement(
 						_reactRouter.Link,
-						{ to: '/login', className: 'btn btn-default' },
+						{ to: '/login', className: 'btn btn-default', id: 'login' },
 						'Login'
 					),
 					_react2.default.createElement(
 						_reactRouter.Link,
-						{ to: '/signup', className: 'btn btn-default' },
+						{ to: '/signup', className: 'btn btn-default', id: 'signup' },
 						'Sign Up'
 					)
 				);
@@ -1648,9 +1656,18 @@ var Navbar = function (_React$Component) {
 						'div',
 						{ className: 'row blue' },
 						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/' },
-							'Axiom-Scientific'
+							'div',
+							{ id: 'title' },
+							_react2.default.createElement(
+								_reactRouter.Link,
+								{ to: '/', className: 'yellow-text' },
+								'Axiom-Scientific'
+							),
+							_react2.default.createElement(
+								'button',
+								{ className: 'btn btn-default verticalAlignHelper', id: 'logout', onClick: this.logout.bind(this) },
+								'Logout'
+							)
 						),
 						loggedIn.call(this)
 					),
@@ -1659,7 +1676,7 @@ var Navbar = function (_React$Component) {
 						{ className: 'row' },
 						_react2.default.createElement(
 							'form',
-							{ ref: 'searchForm', className: 'navbar-form navbar-left animated', onSubmit: this.handleSearch.bind(this) },
+							{ ref: 'searchForm', className: 'navbar-form navbar-left search animated', onSubmit: this.handleSearch.bind(this) },
 							_react2.default.createElement(
 								'div',
 								{ className: 'input-group' },
@@ -1892,7 +1909,12 @@ var Search = function (_React$Component) {
 			});
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ id: 'searchresults' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'titleDiv' },
+					'Search Results'
+				),
 				results.length > 0 ? results : "No products found"
 			);
 		}
@@ -1987,284 +2009,293 @@ var SignUp = function (_React$Component) {
 		value: function render() // In the future, inputs probably can b components
 		{
 			return _react2.default.createElement(
-				'form',
-				{ onSubmit: this.handleSubmit.bind(this) },
-				_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'fname', onChange: _SignUpActions2.default.updateUser, value: this.state.fname, placeholder: 'First Name', required: true }),
-				_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'lname', onChange: _SignUpActions2.default.updateUser, value: this.state.lname, placeholder: 'Last Name' }),
-				_react2.default.createElement('input', { type: 'email', className: 'form-control', name: 'email', onChange: _SignUpActions2.default.updateUser, value: this.state.email, placeholder: 'Email', required: true }),
-				_react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', onChange: _SignUpActions2.default.updateUser, value: this.state.password, placeholder: 'Password', required: true }),
-				_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'address', onChange: _SignUpActions2.default.updateUser, value: this.state.address, placeholder: 'Address', required: true }),
-				_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'city', onChange: _SignUpActions2.default.updateUser, value: this.state.city, placeholder: 'City', required: true }),
+				'div',
+				null,
 				_react2.default.createElement(
-					'select',
-					{ name: 'st', className: 'form-control', onChange: _SignUpActions2.default.updateUser },
-					_react2.default.createElement(
-						'option',
-						{ value: '' },
-						'Please Select a State'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'AL' },
-						'Alabama'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'AK' },
-						'Alaska'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'AZ' },
-						'Arizona'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'AR' },
-						'Arkansas'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'CA' },
-						'California'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'CO' },
-						'Colorado'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'CT' },
-						'Connecticut'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'DE' },
-						'Delaware'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'DC' },
-						'District Of Columbia'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'FL' },
-						'Florida'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'GA' },
-						'Georgia'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'HI' },
-						'Hawaii'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'ID' },
-						'Idaho'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'IL' },
-						'Illinois'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'IN' },
-						'Indiana'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'IA' },
-						'Iowa'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'KS' },
-						'Kansas'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'KY' },
-						'Kentucky'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'LA' },
-						'Louisiana'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'ME' },
-						'Maine'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'MD' },
-						'Maryland'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'MA' },
-						'Massachusetts'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'MI' },
-						'Michigan'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'MN' },
-						'Minnesota'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'MS' },
-						'Mississippi'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'MO' },
-						'Missouri'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'MT' },
-						'Montana'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'NE' },
-						'Nebraska'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'NV' },
-						'Nevada'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'NH' },
-						'New Hampshire'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'NJ' },
-						'New Jersey'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'NM' },
-						'New Mexico'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'NY' },
-						'New York'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'NC' },
-						'North Carolina'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'ND' },
-						'North Dakota'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'OH' },
-						'Ohio'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'OK' },
-						'Oklahoma'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'OR' },
-						'Oregon'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'PA' },
-						'Pennsylvania'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'RI' },
-						'Rhode Island'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'SC' },
-						'South Carolina'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'SD' },
-						'South Dakota'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'TN' },
-						'Tennessee'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'TX' },
-						'Texas'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'UT' },
-						'Utah'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'VT' },
-						'Vermont'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'VA' },
-						'Virginia'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'WA' },
-						'Washington'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'WV' },
-						'West Virginia'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'WI' },
-						'Wisconsin'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'WY' },
-						'Wyoming'
-					)
+					'div',
+					{ className: 'titleDiv' },
+					'Sign Up'
 				),
-				_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'zip', onChange: _SignUpActions2.default.updateUser, value: this.state.zip, placeholder: 'Zip Code', required: true }),
-				_react2.default.createElement('input', { type: 'tel', className: 'form-control', name: 'phone', onChange: _SignUpActions2.default.updateUser, value: this.state.phone, placeholder: 'Phone Number', required: true }),
 				_react2.default.createElement(
-					'button',
-					{ type: 'submit', className: 'btn btn-primary' },
-					'Create Account'
+					'form',
+					{ onSubmit: this.handleSubmit.bind(this), className: 'authForm' },
+					_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'fname', onChange: _SignUpActions2.default.updateUser, value: this.state.fname, placeholder: 'First Name', required: true }),
+					_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'lname', onChange: _SignUpActions2.default.updateUser, value: this.state.lname, placeholder: 'Last Name' }),
+					_react2.default.createElement('input', { type: 'email', className: 'form-control', name: 'email', onChange: _SignUpActions2.default.updateUser, value: this.state.email, placeholder: 'Email', required: true }),
+					_react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', onChange: _SignUpActions2.default.updateUser, value: this.state.password, placeholder: 'Password', required: true }),
+					_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'address', onChange: _SignUpActions2.default.updateUser, value: this.state.address, placeholder: 'Address', required: true }),
+					_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'city', onChange: _SignUpActions2.default.updateUser, value: this.state.city, placeholder: 'City', required: true }),
+					_react2.default.createElement(
+						'select',
+						{ name: 'st', className: 'form-control', onChange: _SignUpActions2.default.updateUser },
+						_react2.default.createElement(
+							'option',
+							{ value: '' },
+							'Please Select a State'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'AL' },
+							'Alabama'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'AK' },
+							'Alaska'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'AZ' },
+							'Arizona'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'AR' },
+							'Arkansas'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'CA' },
+							'California'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'CO' },
+							'Colorado'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'CT' },
+							'Connecticut'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'DE' },
+							'Delaware'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'DC' },
+							'District Of Columbia'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'FL' },
+							'Florida'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'GA' },
+							'Georgia'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'HI' },
+							'Hawaii'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'ID' },
+							'Idaho'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'IL' },
+							'Illinois'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'IN' },
+							'Indiana'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'IA' },
+							'Iowa'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'KS' },
+							'Kansas'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'KY' },
+							'Kentucky'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'LA' },
+							'Louisiana'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'ME' },
+							'Maine'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'MD' },
+							'Maryland'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'MA' },
+							'Massachusetts'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'MI' },
+							'Michigan'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'MN' },
+							'Minnesota'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'MS' },
+							'Mississippi'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'MO' },
+							'Missouri'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'MT' },
+							'Montana'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'NE' },
+							'Nebraska'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'NV' },
+							'Nevada'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'NH' },
+							'New Hampshire'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'NJ' },
+							'New Jersey'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'NM' },
+							'New Mexico'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'NY' },
+							'New York'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'NC' },
+							'North Carolina'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'ND' },
+							'North Dakota'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'OH' },
+							'Ohio'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'OK' },
+							'Oklahoma'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'OR' },
+							'Oregon'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'PA' },
+							'Pennsylvania'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'RI' },
+							'Rhode Island'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'SC' },
+							'South Carolina'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'SD' },
+							'South Dakota'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'TN' },
+							'Tennessee'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'TX' },
+							'Texas'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'UT' },
+							'Utah'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'VT' },
+							'Vermont'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'VA' },
+							'Virginia'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'WA' },
+							'Washington'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'WV' },
+							'West Virginia'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'WI' },
+							'Wisconsin'
+						),
+						_react2.default.createElement(
+							'option',
+							{ value: 'WY' },
+							'Wyoming'
+						)
+					),
+					_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'zip', onChange: _SignUpActions2.default.updateUser, value: this.state.zip, placeholder: 'Zip Code', required: true }),
+					_react2.default.createElement('input', { type: 'tel', className: 'form-control', name: 'phone', onChange: _SignUpActions2.default.updateUser, value: this.state.phone, placeholder: 'Phone Number', required: true }),
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit', className: 'btn btn-primary form-control' },
+						'Create Account'
+					)
 				)
 			);
 		}
