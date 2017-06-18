@@ -44,7 +44,8 @@ class Search extends React.Component
 			return <Link to={'/products/' + product.sku} key={product.sku}>{product.name + ": " + product.variant}</Link>
 		})
 		return (
-			<div>
+			<div id='searchresults'>
+				<div className='titleDiv'>Search Results</div>
 				{(results.length > 0 ? results : "No products found")}
 			</div>
 		)
