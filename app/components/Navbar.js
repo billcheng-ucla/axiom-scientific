@@ -57,20 +57,22 @@ class Navbar extends React.Component
 	{
 		var loggedIn = function()
 		{
-			console.log(this)
-			return (this.state.user) ? <div>Hello {this.state.user.fname} <button className='btn btn-default' onClick={this.logout.bind(this)}>Logout</button></div> : (<div><Link to='/login' className='btn btn-default'>Login</Link>
-						<Link to='/signup' className='btn btn-default'>Sign Up</Link></div>)
+			return (this.state.user) ? <div className='welcome yellow-text'>Hello {this.state.user.fname} <button className='btn btn-default' id='logout' onClick={this.logout.bind(this)}>Logout</button></div> : (<div className='welcome'><Link to='/login' className='btn btn-default' id='login'>Login</Link>
+						<Link to='/signup' className='btn btn-default' id='signup'>Sign Up</Link></div>)
 		}
 		loggedIn.bind(this)
 		return (
 			<nav className='navbar navbar-default navbar-static-top'>
 				<div className='container-fluid'>
 					<div className='row blue'>
-						<Link to='/'>Axiom-Scientific</Link>
+						<div id='title'>
+							<Link to='/' className='yellow-text' >Axiom-Scientific</Link>
+							<button className='btn btn-default verticalAlignHelper' id='logout' onClick={this.logout.bind(this)}>Logout</button>
+						</div>
 						{loggedIn.call(this)}
 					</div>
 					<div className='row'>
-						<form ref='searchForm' className='navbar-form navbar-left animated' onSubmit={this.handleSearch.bind(this)}>
+						<form ref='searchForm' className='navbar-form navbar-left search animated' onSubmit={this.handleSearch.bind(this)}>
 				            <div className='input-group'>
 				              <input type='text' className='form-control' placeholder={"Type Item # or keyword"} value={this.state.searchQuery} onChange={NavbarActions.updateSearchQuery} />
 				              <span className='input-group-btn'>

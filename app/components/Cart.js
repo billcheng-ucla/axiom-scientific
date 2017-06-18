@@ -66,20 +66,20 @@ class Cart extends React.Component
 				<div key={sku}>
 					<div>Name: {self.state.cart[sku].name} </div>
 					<div>Variant: {self.state.cart[sku].variant} </div>
-					<div>Price: {self.state.cart[sku].price} </div>
+					<div>Price: ${self.state.cart[sku].price} </div>
 					<div>x{self.state.cart[sku].itemsWanted}</div>
-					<div>Total: {self.state.cart[sku].itemsWanted * self.state.cart[sku].price}</div>
+					<div>Total: ${self.state.cart[sku].itemsWanted * self.state.cart[sku].price}</div>
 					<button onClick={removeItem}>X</button>
 				</div>
 			)
 		})
 		return (
-			<div>
+			<div id='cart'>
 				<button className='btn btn-default' onClick={this.showCart} disabled={bill > 0 ? '' : 'disabled'}>My Cart {this.state.cart.numberOfItems}</button>
 				<div className={"shoppingList " + ((this.state.cartVisible && bill > 0) ? "cartActive" : "cartInactive")}>
 					<button onClick={this.hideCart}>Hide</button>
 					{items}
-					<div>{"Grand Total: " + bill}</div>
+					<div>{"Grand Total: $" + bill}</div>
 					<Link to='/checkout' className='btn btn-primary' onClick={this.hideCart}>Checkout</Link>
 				</div>
 			</div>
