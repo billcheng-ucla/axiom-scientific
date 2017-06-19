@@ -48,14 +48,24 @@ class Product extends React.Component
 	render()
 	{
 		return ( 
-			<div>
-				<div>Name: {this.state.name}</div>
-				<div>Variant: {this.state.variant}</div>
-				<div>$ {this.state.price}</div>
-				<div>
-					<input type='number' value={this.state.itemsWanted} onChange={ProductActions.updateItemsWanted}/> (max: {this.state.quantity})
+			<div className='productContainer'>
+				<div className='row' id='productDisplay'>
+					<div className='col-lg-4 imgContainer'>
+						<img src={'../public/img/' + this.state.image} />
+					</div>
+					<div className='col-lg-8'>
+						<div>Name: {this.state.name}</div>
+						<div>Variant: {this.state.variant}</div>
+						<div>Description: <p>{this.state.description}</p> </div>
+					</div>
 				</div>
-				<button className='btn btn-default' onClick={this.updateCart.bind(this)}>Add to Cart</button>
+				<div id='productShelf'>
+					<div>Price: ${this.state.price}</div>
+					<div>
+						<input type='number' value={this.state.itemsWanted} onChange={ProductActions.updateItemsWanted} className='itemswanted'/> (max: {this.state.quantity})
+					</div>
+					<button className='btn btn-default cartadd' onClick={this.updateCart.bind(this)}>Add to Cart</button>
+				</div>
 			</div>
 		)
 	}
