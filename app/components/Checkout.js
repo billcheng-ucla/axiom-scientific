@@ -149,14 +149,18 @@ class Checkout extends React.Component
   					<div>{"Grand Total: " + bill}</div>
   				</div>
   				<form onSubmit={this.handleSubmit.bind(this)}>
-  					<label>Name of Recipient</label>
-  					<input type='text' className='form-control' name='name' onChange={CheckoutActions.updateShip} value={this.state.ship.name} placeholder='Name of Recipient' required/>
-  					<label>Shipping Address</label>
-  					<input type='text' className='form-control' name='address' onChange={CheckoutActions.updateShip} value={this.state.ship.address} placeholder='Shipping Address' required/>
-  					<label>Name: (as it appears on the credit card)</label>
-  					<input type='text' className='form-control' name='name' onChange={CheckoutActions.updateBill} value={this.state.bill.name} placeholder='Name of Recipient' required/>
-  					<label>Address of Recipient</label>
-  					<input type='text' className='form-control' name='address' onChange={CheckoutActions.updateBill} value={this.state.bill.address} placeholder='Shipping Address' required/>
+  					<div id='shipping'>
+  						<label>Name of Recipient</label>
+  						<input type='text' className='form-control' name='name' onChange={CheckoutActions.updateShip} value={this.state.ship.name} placeholder='Name of Recipient' required/>
+  						<label>Shipping Address</label>
+  						<input type='text' className='form-control' name='address' onChange={CheckoutActions.updateShip} value={this.state.ship.address} placeholder='Shipping Address' required/>
+  					</div>
+  					<div id='billing'>
+  						<label>Name: (as it appears on the credit card)</label>
+  						<input type='text' className='form-control' name='name' onChange={CheckoutActions.updateBill} value={this.state.bill.name} placeholder='Name of Recipient' required/>
+  						<label>Address of Recipient</label>
+  						<input type='text' className='form-control' name='address' onChange={CheckoutActions.updateBill} value={this.state.bill.address} placeholder='Shipping Address' required/>
+  					</div>
   					<CreditCard onChange={this.creditCardChange}/>
   					<button type='submit' className='btn btn-success'>Place Order</button>
   				</form>

@@ -59,7 +59,7 @@ class Product extends React.Component
 						<div>Description: <p>{this.state.description}</p> </div>
 					</div>
 				</div>
-				<div id='productShelf'>
+				<div className='productShelf'>
 					<div>Price: ${this.state.price}</div>
 					<div>
 						<input type='number' value={this.state.itemsWanted} onChange={ProductActions.updateItemsWanted} className='itemswanted'/> (max: {this.state.quantity})
