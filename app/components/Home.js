@@ -4,6 +4,7 @@ import Tabs from './Tabs'
 import HomeStore from '../stores/HomeStore'
 import HomeActions from '../actions/HomeActions'
 import {Link} from 'react-router'
+import ProductList from './ProductList'
 class Home extends React.Component 
 {
   constructor(props)
@@ -15,13 +16,13 @@ class Home extends React.Component
 
   componentDidMount()
   {
-	HomeStore.listen(this.onChange)
-	HomeActions.getProducts()
+  	HomeStore.listen(this.onChange)
+  	HomeActions.getProducts()
   }
 
   componentWillUnmount()
   {
-	HomeStore.unlisten(this.onChange)
+  	HomeStore.unlisten(this.onChange)
   }
 
   onChange(state)
@@ -45,19 +46,42 @@ class Home extends React.Component
   			})
   		)
   	}
+
+    function generateProductLists(products)
+    {
+      console.log(products)
+      var productTypes = {}
+      for (var product of products)
+      {
+        console.log(product)
+        if(!productTypes[product.name])
+        {
+          productTypes[product.name] = []
+        }
+        productTypes[product.name].push(product)
+      }
+      console.log(productTypes)
+      console.log(Object.keys(productTypes))
+      return (
+        Object.keys(productTypes).map((productType) => {
+          console.log(<ProductList name={productType} products={productTypes[productType]} />)
+          return (<ProductList name={productType} products={productTypes[productType]} key={productType} />)
+        })
+      )
+    }
     return (
       <Tabs selected={0}>
       	<Tab label='Zerg'>
       		<p> Placeholder Zerg Product Description </p>
-      		{generateProducts(this.state.zerg)}
+      		{generateProductLists(this.state.zerg)}
       	</Tab>
       	<Tab label='Protoss'>
       		<p> Placeholder Protoss Product Description </p>
-      		{generateProducts(this.state.protoss)}
+      		{generateProductLists(this.state.protoss)}
       	</Tab>
       	<Tab label='Materials'>
       		<p> Placeholder Materials Product Description </p>
-      		{generateProducts(this.state.materials)}
+      		{generateProductLists(this.state.materials)}
       	</Tab>
       </Tabs>
     )
