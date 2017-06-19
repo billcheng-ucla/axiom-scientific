@@ -131,20 +131,20 @@ class Checkout extends React.Component
   				self.setState({cart: self.state.cart})
   			}
   			return (
-  				<div key={sku}>
+  				<div key={sku} className='item'>
+            <button onClick={removeItem} className='removeItem btn btn-default'>&times;</button>
   					<div>Name: {self.state.cart[sku].name} </div>
   					<div>Variant: {self.state.cart[sku].variant} </div>
-  					<div>Price: {self.state.cart[sku].price} </div>
-  					<div>x{self.state.cart[sku].itemsWanted}</div>
+  					<div>Price: {self.state.cart[sku].price} x{self.state.cart[sku].itemsWanted}</div>
   					<div>Total: {self.state.cart[sku].itemsWanted * self.state.cart[sku].price}</div>
-  					<button onClick={removeItem}>X</button>
+  					
   				</div>
   			)
   		})
   		return (
   			//TODO: list of items
-  			<div>
-  				<div>
+  			<div id='checkout'>
+  				<div id='confirmation'>
   					{items}
   					<div>{"Grand Total: " + bill}</div>
   				</div>
