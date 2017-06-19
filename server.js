@@ -30,9 +30,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 /*** MailChimp ***/
 
-var mailchimpInstance   = 'us15',
+var mailchimpInstance   = config.mailchimp_instance,
     listUniqueId        = 'd9091f3d4e',
-    mailchimpApiKey     = '98e7dfd5d5d5c7ffcf0e079910cb72cf-us15'
+    mailchimpApiKey     = config.mailchimp_api
 
 var sendReceipt = function(data)
 {
@@ -74,6 +74,20 @@ var sendReceipt = function(data)
     });
 }
 
+var makeReceipt = function(cart)
+{
+  var reciept = ''
+  for(var key of Object.keys(cart))
+  {
+    if (key !== 'numberOfItems')
+    {
+      reciept += "Name: " + cart[key].name + " Variant: " + cart[key].variant + " Price: " + cart[key].price + " x " + cart[key].itemsWanted + " SKU: " + cart[key].sku + "<br>"
+    }
+    
+  }
+  return reciept
+}
+
 var addMemberToMyList = function(data)
 {
   console.log("Adding Member", data.merge_fields)
@@ -88,7 +102,7 @@ var addMemberToMyList = function(data)
           'merge_fields': {
             'FNAME': data['merge_fields[FNAME]'],
             'LNAME': data['merge_fields[LNAME]'],
-            'CART': data['merge_fields[CART]'],
+            'CART': makeReceipt(JSON.parse(data['merge_fields[CART]'])),
             'SHIPNAME': data['merge_fields[SHIPNAME]'],
             'SHIPADD': data['merge_fields[SHIPADD]'],
             'BILLNAME': data['merge_fields[BILLNAME]'],
